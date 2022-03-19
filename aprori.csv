@@ -1,0 +1,26 @@
+import numpy as np
+import matplotlib.pyplot as mtp
+import pandas as pd
+from apyori import apriori
+store_data=pd.read_csv('input.csv',header=None)
+store_data
+#print(store_data.shape)
+transactions=[]
+for i in range(0,21):
+    transactions.append([str(store_data.values[i,j])for j in range(0,7)])
+association_rule = apriori(transactions=transactions,min_support=0.10,min_confidence=0.2,min_lift=0.5, min_length=2,max_length=2)
+association_results = list(association_rule)
+#association_results
+print(len(association_results))
+print(association_results)
+for item in association_results:
+    pair = item[0]
+    items=[x for x in pair]
+    
+    print("Rule:" +str(item[0])+ "->"  +str(item[1]))
+    print("Support:" +str(item[1]))
+    print("Confidence:" +str(item[2][0][2]))
+    print("Lift:" +str(item[2][0][3]))
+
+    print("==============================================================================")
+
